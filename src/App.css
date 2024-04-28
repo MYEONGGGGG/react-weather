@@ -6,6 +6,9 @@ body {
 .weather-box {
   border: 3px solid white;
   padding: 50px;
+  margin-bottom: 10px;
+  width: 50vw;
+  text-align: center;
   border-radius: 30px;
   background-color: azure;
 }
@@ -15,5 +18,10 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  flex-direction: column;
+}
+
+.test {
+  display: flex;
   flex-direction: column;
 }

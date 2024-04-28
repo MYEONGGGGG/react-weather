@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
+import Spinner from 'react-bootstrap/Spinner';
 
-const WeatherBox = ({ rsWeather }) => { // App.js 에서 받은 값
-    // console.log('rsWeather: ', rsWeather?.main);
-    let temp = rsWeather?.main.temp;
-
+const WeatherBox = ({ rsWeather }) => { // App.js 에서 받은 props
+    const [loading, setLoading] = useState(true);
     const [celsius, setCelsius] = useState(null);
     const [fahrenheit, setFahrenheit] = useState(null);
 
+    let temp = rsWeather?.main.temp;
+
     useEffect(() => {
+        setLoading(!rsWeather);
+
         // console.log('섭씨:', temp);
         setCelsius(temp);
 
         let fh = calculator(celsius);
         // console.log('화씨:', fh);
         setFahrenheit(fh);
-    }, [celsius, temp]);
+    }, [celsius, temp, rsWeather]);
 
     // 화씨 계산
     const calculator = (value) => {
@@ -26,11 +29,19 @@ const WeatherBox = ({ rsWeather }) => { // App.js 에서 받은 값
         // - 조건부 렌더링: <div>{rsWeather && rsWeather.name}</div>
         // - 삼항 연산식 렌더링: <div>{rsWeather?.name}</div>
         <div className="weather-box">
-            {/*<div>{rsWeather && rsWeather.name}</div>*/}
-            <div>{rsWeather?.name}</div>
-            {/*<h3>{rsWeather?.main.temp}C/{fahrenheit()}</h3>*/}
-            <h3>{ celsius }C/{ fahrenheit }</h3>
-            <h5>{rsWeather?.weather[0].description}</h5>
+            {loading ? ( // 로딩 중이면 Spinner를 표시
+                <Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </Spinner>
+            ) : ( // 로딩 중이 아니면 날씨 정보를 표시
+                <div>
+                    {/*<div>{rsWeather && rsWeather.name}</div>*/}
+                    <div>{rsWeather?.name}</div>
+                    {/*<h3>{rsWeather?.main.temp}C/{fahrenheit()}</h3>*/}
+                    <h3>{ celsius }C/{ fahrenheit }</h3>
+                    <h5>{rsWeather?.weather[0].description}</h5>
+                </div>
+            )}
         </div>
     );
 };
