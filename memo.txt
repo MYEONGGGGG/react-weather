@@ -1,4 +1,4 @@
 weather api
-key = de14f99f543bf82777bafbe0fb88518cd
+key = de14f99f543bf8277bafbe0fb88518cd
 api call = https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
            예) https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid={API key}
